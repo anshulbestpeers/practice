@@ -16,11 +16,13 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-
-    if @article.save
+    valid = params[:terms_of_service]
+    if valid = 1
+      if @article.save
       redirect_to @article
-    else
+      else
       render :new, status: :unprocessable_entity
+      end
     end
   end
 
@@ -47,6 +49,6 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status, :email)
+      params.require(:article).permit(:title, :body, :status, :email, :terms_of_service)
     end
 end
