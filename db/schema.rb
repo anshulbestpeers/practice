@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_065941) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_31_062717) do
   create_table "account_histories", force: :cascade do |t|
     t.integer "credit_rating"
     t.integer "account_id", null: false
@@ -57,8 +57,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_065941) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
-  create_table "patients", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.string "name"
+    t.string "place"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -80,6 +81,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_065941) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.string "place"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "revieable_type"
+    t.integer "revieable_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "Role_type"
     t.datetime "created_at", null: false
@@ -92,9 +108,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_065941) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "pname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "account_histories", "accounts"
   add_foreign_key "accounts", "suppliers"
-  add_foreign_key "appointments", "patients"
   add_foreign_key "appointments", "physicians"
+  add_foreign_key "appointments", "users", column: "patient_id"
   add_foreign_key "comments", "articles"
 end
