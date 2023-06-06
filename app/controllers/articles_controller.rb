@@ -17,9 +17,14 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    valid = params[:terms_of_service]
-    if valid = 1
+    byebug
+    
+    if params[:article][:terms_of_service] = 1
+      byebug
       if @article.save
+        byebug
+        BlogMailer.welcome_email(@article).deliver_now
+        #format.html { redirect_to(@article, notice: 'User was successfully created.') }
       redirect_to @article
       else
       render :new, status: :unprocessable_entity
@@ -35,7 +40,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
-      redirect_to @article
+      redirect_to article_path(@article)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,6 +55,6 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status, :email, :terms_of_service)
+      params.require(:article).permit(:Article_user, :title, :body, :status, :email, :terms_of_service)
     end
 end

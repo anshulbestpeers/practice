@@ -1,7 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  rating: MyString
+  rating: 1
+  revieable: MyString
+  reviable_id: 1
+  revieable: one
+  revieable_type: Revieable
 
 two:
-  rating: MyString
+  rating: 1
+  revieable: MyString
+  reviable_id: 1
+  revieable: two
+  revieable_type: Revieable

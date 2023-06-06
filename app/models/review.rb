@@ -1,3 +1,3 @@
 class Review < ApplicationRecord
-    belongs_to :revieble, polymorphic: true
+  belongs_to :revieable, polymorphic: true
 end

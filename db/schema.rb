@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_062717) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_064622) do
   create_table "account_histories", force: :cascade do |t|
     t.integer "credit_rating"
     t.integer "account_id", null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_062717) do
     t.string "status"
     t.string "email"
     t.string "terms_of_service"
+    t.string "Article_user"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -60,6 +61,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_062717) do
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.string "place"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "pname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -89,11 +96,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_062717) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.string "rating"
+    t.integer "rating"
+    t.string "revieable"
+    t.integer "reviable_id"
+    t.string "revieable_type", null: false
+    t.integer "revieable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "revieable_type"
-    t.integer "revieable_id"
+    t.index ["revieable_type", "revieable_id"], name: "index_reviews_on_revieable"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -108,15 +118,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_062717) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "pname"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "account_histories", "accounts"
   add_foreign_key "accounts", "suppliers"
+  add_foreign_key "appointments", "patients"
   add_foreign_key "appointments", "physicians"
-  add_foreign_key "appointments", "users", column: "patient_id"
   add_foreign_key "comments", "articles"
 end
